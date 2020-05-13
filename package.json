@@ -16,9 +16,11 @@
   "license": "ISC",
   "dependencies": {
     "fastify": "^2.0.0",
-    "fastify-plugin": "^1.5.0",
     "fastify-autoload": "^1.0.0",
-    "fastify-cli": "^1.5.0"
+    "fastify-cli": "^1.5.0",
+    "fastify-plugin": "^1.5.0",
+    "fastify-postgres": "^2.0.0",
+    "pg": "^8.1.0"
   },
   "devDependencies": {
     "tap": "^12.5.3"

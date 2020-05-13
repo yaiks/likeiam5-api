@@ -3,6 +3,19 @@ services:
   - docker
 
 script:
-  - docker build -t ricardohan93/likeiam5-api .
+  - docker build -t ricardohan/likeiam5-api .
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push ricardohan/likeiam5-api
+
+deploy:
+  edge: true
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: likeiam5
+  env: Likeiam5-env
+  bucket_name: elasticbeanstalk-us-east-2-709603168636
+  bucket_path: likeiam5
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

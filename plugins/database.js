@@ -1,18 +1,18 @@
 "use strict";
 
-// const fastifyPlugin = require('fastify-plugin')
-const postgres = require("fastify-postgres");
-const keys = require("../keys");
+const fp = require("fastify-plugin");
 
-// the use of fastify-plugin is required to be able
-// to export the decorators to the outer scope
+module.exports = fp(function (fastify, opts, next) {
+	fastify.decorate("query", function (querySQL, values, callback) {
+		fastify.pg.connect((err, client, release) => {
+			if (err) console.log(err);
 
-postgres.autoConfig = {
-	user: keys.pgUser,
-	host: keys.pgHost,
-	database: keys.pgDatabase,
-	password: keys.pgPassword,
-	port: keys.pgPort,
-};
+			client.query(querySQL, values, (err, result) => {
+				release();
+				callback(err, result);
+			});
+		});
+	});
 
-module.exports = postgres;
+	next();
+});

@@ -1,23 +1,23 @@
 "use strict";
-
 const path = require("path");
 const AutoLoad = require("fastify-autoload");
-const keys = require("./keys");
+const fastifyAuth = require("fastify-auth");
+const fastifyJwt = require("fastify-jwt");
+const cors = require("cors");
+const { models, sequelize } = require("./models");
 
 module.exports = function (fastify, opts, next) {
 	// Place here your custom code!
-
-	fastify.register(require("fastify-postgres"), {
-		user: keys.pgUser,
-		host: keys.pgHost,
-		database: keys.pgDatabase,
-		password: keys.pgPassword,
-		port: keys.pgPort,
-	});
-	fastify.register(require("fastify-auth"));
-	fastify.register(require("fastify-jwt"), {
+	fastify.register(fastifyAuth);
+	fastify.register(fastifyJwt, {
 		secret: "mysupersecret",
 	});
+
+	fastify.use(cors());
+
+	sequelize.sync();
+
+	fastify.decorate("models", models);
 
 	// This loads all plugins defined in plugins
 	// those should be support plugins that are reused

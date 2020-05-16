@@ -21,9 +21,13 @@
 		"fastify-autoload": "^1.0.0",
 		"fastify-cli": "^1.5.0",
 		"fastify-plugin": "^1.5.0",
+		"simple-oauth2": "^3.4.0",
+		"es6-promisify": "^6.1.1",
 		"sequelize": "^5.21.9",
+		"simple-get": "^4.0.0",
 		"bcrypt": "^4.0.1",
 		"cors": "^2.8.5",
+		"dotenv": "^8.2.0",
 		"pg": "^8.1.0"
 	},
 	"devDependencies": {

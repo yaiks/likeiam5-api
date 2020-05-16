@@ -11,4 +11,6 @@ const signupSchema = {
 	},
 };
 
-module.exports = signupSchema;
+module.exports = {
+	signupSchema,
+};

@@ -16,10 +16,10 @@ const user = (sequelize, DataTypes) => {
 		password: {
 			type: DataTypes.STRING,
 			unique: true,
-			allowNull: false,
-			validate: {
-				notEmpty: true,
-			},
+		},
+		google_id: {
+			type: DataTypes.STRING,
+			unique: true,
 		},
 	});
 
@@ -42,7 +42,9 @@ const user = (sequelize, DataTypes) => {
 	};
 
 	User.beforeCreate(async (user) => {
-		user.password = await user.generatePasswordHash();
+		if (user.password) {
+			user.password = await user.generatePasswordHash();
+		}
 	});
 
 	User.prototype.generatePasswordHash = async function () {

@@ -2,7 +2,7 @@
 
 module.exports = function (fastify, opts, next) {
 	fastify.get("/", function (request, reply) {
-		reply.send({ root: true });
+		reply.send({ yey: "working!" });
 	});
 
 	next();

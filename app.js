@@ -1,22 +1,16 @@
 "use strict";
+require("dotenv").config();
 const path = require("path");
 const AutoLoad = require("fastify-autoload");
 const fastifyAuth = require("fastify-auth");
-const fastifyJwt = require("fastify-jwt");
 const cors = require("cors");
 const { models, sequelize } = require("./models");
 
 module.exports = function (fastify, opts, next) {
 	// Place here your custom code!
 	fastify.register(fastifyAuth);
-	fastify.register(fastifyJwt, {
-		secret: "mysupersecret",
-	});
-
 	fastify.use(cors());
-
 	sequelize.sync();
-
 	fastify.decorate("models", models);
 
 	// This loads all plugins defined in plugins

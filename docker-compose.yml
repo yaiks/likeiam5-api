@@ -17,6 +17,7 @@ services:
       - PGDATABASE=postgres
       - PGPASSWORD=postgres_password
       - PGPORT=5432
+      - DOMAIN=http://localhost:3000
       - JWT_SECRET=klfoaifieh773da
     ports:
       - 3000:3000

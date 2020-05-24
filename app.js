@@ -3,13 +3,15 @@ require("dotenv").config();
 const path = require("path");
 const AutoLoad = require("fastify-autoload");
 const fastifyAuth = require("fastify-auth");
-const cors = require("cors");
+const fastifyCors = require("fastify-cors");
+const fastifyCookie = require("fastify-cookie");
 const { models, sequelize } = require("./models");
 
 module.exports = function (fastify, opts, next) {
 	// Place here your custom code!
 	fastify.register(fastifyAuth);
-	fastify.use(cors());
+	fastify.register(fastifyCookie);
+	fastify.register(fastifyCors);
 	sequelize.sync();
 	fastify.decorate("models", models);
 

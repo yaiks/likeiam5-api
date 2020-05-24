@@ -12,13 +12,14 @@ services:
       - /app/node_modules
       - .:/app
     environment:
+      - DOMAIN=http://localhost:3000
+      - CLIENT=http://localhost:8080
+      - JWT_SECRET=klfoaifieh773da
       - PGUSER=postgres
       - PGHOST=postgres
       - PGDATABASE=postgres
       - PGPASSWORD=postgres_password
       - PGPORT=5432
-      - DOMAIN=http://localhost:3000
-      - JWT_SECRET=klfoaifieh773da
     ports:
       - 3000:3000
     depends_on:

@@ -5,7 +5,7 @@ module.exports = async function (fastify, opts, next) {
 			preValidation: [fastify.authenticate],
 		},
 		async function (request, reply) {
-			return request.user;
+			reply.send({ user: request.user });
 		}
 	);
 

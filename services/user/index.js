@@ -4,6 +4,9 @@ module.exports = async function (fastify, opts, next) {
 		{
 			preValidation: [fastify.authenticate],
 		},
+		/**
+		 * @param {Object} request.user - has email, id and iat
+		 */
 		async function (request, reply) {
 			reply.send({ user: request.user });
 		}

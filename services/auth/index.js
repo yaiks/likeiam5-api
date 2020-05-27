@@ -54,15 +54,8 @@ function authRoutes(fastify, opts, next) {
 						const generateToken = ({ id, email }) =>
 							fastify.jwt.sign({ id, email });
 						const token = generateToken(user);
-						// https://stackoverflow.com/questions/1134290/cookies-on-localhost-with-explicit-domain
-						reply
-							.setCookie("token", token, {
-								maxAge: 60 * 60 * 24 * 7,
-								sameSite: "none",
-								secure: true,
-								path: "/",
-							})
-							.redirect(process.env.CLIENT);
+
+						reply.redirect(`${process.env.CLIENT}explore/?token=${token}`);
 					}
 				);
 			}

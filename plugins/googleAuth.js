@@ -14,5 +14,5 @@ module.exports.autoConfig = {
 		auth: oauthPlugin.GOOGLE_CONFIGURATION,
 	},
 	startRedirectPath: "/login/google",
-	callbackUri: `${process.env.DOMAIN}/login/google/callback`,
+	callbackUri: `${process.env.DOMAIN}login/google/callback`,
 };

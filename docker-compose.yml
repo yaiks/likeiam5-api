@@ -12,8 +12,8 @@ services:
       - /app/node_modules
       - .:/app
     environment:
-      - DOMAIN=http://localhost:3000
-      - CLIENT=http://localhost:8080
+      - DOMAIN=http://localhost:3000/
+      - CLIENT=http://localhost:8080/
       - JWT_SECRET=klfoaifieh773da
       - PGUSER=postgres
       - PGHOST=postgres

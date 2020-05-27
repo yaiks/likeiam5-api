@@ -11,9 +11,7 @@ module.exports = function (fastify, opts, next) {
 	// Place here your custom code!
 	fastify.register(fastifyAuth);
 	fastify.register(fastifyCookie);
-	fastify.register(fastifyCors, {
-		credentials: true,
-	});
+	fastify.register(fastifyCors);
 	sequelize.sync();
 	fastify.decorate("models", models);
 

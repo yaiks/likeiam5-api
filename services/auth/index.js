@@ -57,6 +57,7 @@ function authRoutes(fastify, opts, next) {
 						// https://stackoverflow.com/questions/1134290/cookies-on-localhost-with-explicit-domain
 						reply
 							.setCookie("token", token, {
+								maxAge: 60 * 60 * 24 * 7,
 								path: "/",
 							})
 							.redirect(process.env.CLIENT);

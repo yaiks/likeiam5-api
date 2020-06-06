@@ -1,15 +1,12 @@
 const Sequelize = require("sequelize");
-const keys = require("../keys");
+const dbConfig = require("../config/database.js");
 
-const sequelize = new Sequelize(keys.pgDatabase, keys.pgUser, keys.pgPassword, {
-	host: keys.pgHost,
-	port: keys.pgPort,
-	dialect: "postgres",
-});
+const sequelize = new Sequelize(dbConfig);
 
 const models = {
 	User: sequelize.import("./user"),
 	Post: sequelize.import("./post"),
+	Category: sequelize.import("./category"),
 };
 
 Object.keys(models).forEach((key) => {

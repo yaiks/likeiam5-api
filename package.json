@@ -8,7 +8,7 @@
 	},
 	"scripts": {
 		"test": "tap test/**/*.test.js",
-		"start": "npm run migrate && fastify start -l info app.js",
+		"start": "fastify start -l info app.js",
 		"dev": "npm run migrate && fastify start -w -l info -P app.js",
 		"migrate": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
 	},

@@ -2,34 +2,23 @@ const bcrypt = require("bcrypt");
 
 const user = (sequelize, DataTypes) => {
 	const User = sequelize.define("user", {
-		username: {
-			type: DataTypes.STRING,
-		},
-		email: {
-			type: DataTypes.STRING,
-			unique: true,
-			allowNull: false,
-			validate: {
-				notEmpty: true,
-			},
-		},
-		password: {
-			type: DataTypes.STRING,
-			unique: true,
-		},
-		google_id: {
-			type: DataTypes.STRING,
-			unique: true,
-		},
+		name: DataTypes.STRING,
+		email: DataTypes.STRING,
+		password: DataTypes.STRING,
+		google_id: DataTypes.STRING,
 	});
 
 	User.associate = (models) => {
-		User.hasMany(models.Post, { onDelete: "CASCADE" });
+		User.hasMany(models.Post, {
+			onDelete: "CASCADE",
+			foreignKey: "user_id",
+			as: "posts",
+		});
 	};
 
 	User.findByLogin = async (login) => {
 		let user = await User.findOne({
-			where: { username: login },
+			where: { name: login },
 		});
 
 		if (!user) {

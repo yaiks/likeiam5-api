@@ -8,8 +8,9 @@
 	},
 	"scripts": {
 		"test": "tap test/**/*.test.js",
-		"start": "fastify start -l info app.js",
-		"dev": "fastify start -w -l info -P app.js"
+		"start": "npm run migrate && fastify start -l info app.js",
+		"dev": "npm run migrate && fastify start -w -l info -P app.js",
+		"migrate": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
 	},
 	"keywords": [],
 	"author": "",
@@ -25,6 +26,7 @@
 		"simple-oauth2": "^3.4.0",
 		"es6-promisify": "^6.1.1",
 		"sequelize": "^5.21.9",
+		"sequelize-cli": "^5.5.1",
 		"simple-get": "^4.0.0",
 		"bcrypt": "^4.0.1",
 		"dotenv": "^8.2.0",

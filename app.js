@@ -4,13 +4,12 @@ const path = require("path");
 const AutoLoad = require("fastify-autoload");
 const fastifyAuth = require("fastify-auth");
 const fastifyCors = require("fastify-cors");
-const { models, sequelize } = require("./models");
+const { models } = require("./database/models");
 
 module.exports = function (fastify, opts, next) {
 	// Place here your custom code!
 	fastify.register(fastifyAuth);
 	fastify.register(fastifyCors);
-	sequelize.sync();
 	fastify.decorate("models", models);
 
 	// This loads all plugins defined in plugins

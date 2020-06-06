@@ -46,16 +46,16 @@ function authRoutes(fastify, opts, next) {
 
 						if (!user) {
 							user = await fastify.models.User.create({
+								name,
 								email,
 								google_id: sub,
-								username: name,
 							});
 						}
 						const generateToken = ({ id, email }) =>
 							fastify.jwt.sign({ id, email });
 						const token = generateToken(user);
 
-						reply.redirect(`${process.env.CLIENT}explore/?token=${token}`);
+						reply.redirect(`${process.env.CLIENT}?token=${token}`);
 					}
 				);
 			}

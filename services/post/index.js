@@ -1,14 +1,35 @@
 "use strict";
+const { Op } = require("sequelize");
 const { postSchema } = require("./schema");
 
 module.exports = function (fastify, opts, next) {
 	fastify.get("/posts", async function (request, reply) {
 		request.log.info("Getting posts...");
-		const posts = await fastify.models.Post.findAll({
-			include: { association: "user" },
-		});
 
-		reply.send({ posts });
+		const { order, title } = request.query;
+
+		if (order === "latest") {
+			const posts = await fastify.models.Post.findAll({
+				include: { association: "user" },
+				order: [["createdAt", "DESC"]],
+			});
+			reply.send({ posts });
+		} else if (title) {
+			const posts = await fastify.models.Post.findAll({
+				include: { association: "user" },
+				where: {
+					title: {
+						[Op.substring]: title,
+					},
+				},
+			});
+			reply.send({ posts });
+		} else {
+			const posts = await fastify.models.Post.findAll({
+				include: { association: "user" },
+			});
+			reply.send({ posts });
+		}
 	});
 
 	fastify.get("/post/:postId", async function (request, reply) {
@@ -44,9 +65,9 @@ module.exports = function (fastify, opts, next) {
 		const {
 			title,
 			content,
-			HTMLContent,
+			html_content,
 			premium,
-			HTMLPremium,
+			html_premium,
 			user,
 			category,
 		} = request.body;
@@ -57,9 +78,9 @@ module.exports = function (fastify, opts, next) {
 		const post = await fastify.models.Post.create({
 			title,
 			content,
-			html_content: HTMLContent,
+			html_content,
 			premium,
-			html_premium: HTMLPremium,
+			html_premium,
 			user_id: user.id,
 		});
 

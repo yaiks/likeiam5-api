@@ -11,7 +11,11 @@ module.exports = async function (fastify, opts, next) {
 		 * @param {Object} request.user - has email, id and iat
 		 */
 		async function (request, reply) {
-			const user = await fastify.models.User.findByPk(request.user.id);
+			const user = await fastify.models.User.findByPk(request.user.id, {
+				attributes: {
+					exclude: ["password"],
+				},
+			});
 
 			reply.send({ user });
 		}

@@ -9,12 +9,12 @@ const user = (sequelize, DataTypes) => {
 			password: DataTypes.STRING,
 			google_id: DataTypes.STRING,
 			monetization_endpoint: DataTypes.STRING,
-		},
-		{
-			defaultScope: {
-				attributes: { exclude: ["password"] },
-			},
 		}
+		// {
+		// 	defaultScope: {
+		// 		attributes: { exclude: ["password"] },
+		// 	},
+		// }
 	);
 
 	User.associate = (models) => {

@@ -14,10 +14,41 @@ function authRoutes(fastify, opts, next) {
 		const name = email.split("@")[0];
 
 		// abstract everything to other place
-		const user = await fastify.models.User.create({ password, email, name });
+		const user = await fastify.models.User.create({
+			password,
+			email,
+			name,
+		});
+
 		const generateToken = ({ id, email, name }) =>
 			fastify.jwt.sign({ id, email, name });
 		const token = generateToken(user);
+
+		reply.send({ token });
+	});
+
+	fastify.post("/login", signupSchema, async (request, reply) => {
+		request.log.info("Creating new user...");
+		const { email, password } = request.body;
+
+		let user = await fastify.models.User.findByLogin(email);
+
+		if (!user) {
+			reply.code(400);
+			throw new Error("User not found");
+		}
+
+		const isPasswordValid = await user.validatePassword(password);
+
+		if (!isPasswordValid) {
+			reply.code(400);
+			throw new Error("Password invalid");
+		}
+
+		const generateToken = ({ id, email, name }) =>
+			fastify.jwt.sign({ id, email, name });
+		const token = generateToken(user);
+
 		reply.send({ token });
 	});
 

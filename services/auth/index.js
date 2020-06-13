@@ -11,9 +11,12 @@ function authRoutes(fastify, opts, next) {
 		request.log.info("Creating new user...");
 		const { email, password } = request.body;
 
+		const name = email.split("@")[0];
+
 		// abstract everything to other place
-		const user = await fastify.models.User.create({ password, email });
-		const generateToken = ({ id, email }) => fastify.jwt.sign({ id, email });
+		const user = await fastify.models.User.create({ password, email, name });
+		const generateToken = ({ id, email, name }) =>
+			fastify.jwt.sign({ id, email, name });
 		const token = generateToken(user);
 		reply.send({ token });
 	});

@@ -25,6 +25,10 @@ module.exports = {
 				type: Sequelize.STRING,
 				unique: true,
 			},
+			monetization_endpoint: {
+				type: Sequelize.STRING,
+				unique: true,
+			},
 			created_at: {
 				type: Sequelize.DATE,
 				allowNull: false,

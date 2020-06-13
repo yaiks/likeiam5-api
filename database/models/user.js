@@ -1,12 +1,21 @@
 const bcrypt = require("bcrypt");
 
 const user = (sequelize, DataTypes) => {
-	const User = sequelize.define("user", {
-		name: DataTypes.STRING,
-		email: DataTypes.STRING,
-		password: DataTypes.STRING,
-		google_id: DataTypes.STRING,
-	});
+	const User = sequelize.define(
+		"user",
+		{
+			name: DataTypes.STRING,
+			email: DataTypes.STRING,
+			password: DataTypes.STRING,
+			google_id: DataTypes.STRING,
+			monetization_endpoint: DataTypes.STRING,
+		},
+		{
+			defaultScope: {
+				attributes: { exclude: ["password"] },
+			},
+		}
+	);
 
 	User.associate = (models) => {
 		User.hasMany(models.Post, {
